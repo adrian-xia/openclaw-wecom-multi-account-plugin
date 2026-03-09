@@ -37,7 +37,7 @@ git clone https://github.com/WecomTeam/wecom-openclaw-plugin.git
 cd wecom-openclaw-plugin
 ```
 
-2. 构建插件：
+2. 安装依赖并构建插件：
 
 ```bash
 npm install
@@ -47,10 +47,51 @@ npm run build
 3. 安装到 OpenClaw：
 
 ```bash
+openclaw plugins install .
+```
+
+或者指定完整路径：
+
+```bash
 openclaw plugins install /path/to/wecom-openclaw-plugin
 ```
 
-插件会被安装到 `~/.openclaw/extensions/wecom-multi-account-plugin/` 目录。
+插件会被安装到 `~/.openclaw/extensions/wecom-multi-account-openclaw-plugin/` 目录。
+
+### 方式三：本地开发调试
+
+如果需要频繁修改代码并测试，可以使用软链接方式：
+
+1. 构建插件：
+
+```bash
+npm install
+npm run build
+```
+
+2. 创建软链接到 OpenClaw 插件目录：
+
+```bash
+# 先删除已安装的插件（如果存在）
+rm -rf ~/.openclaw/extensions/wecom-multi-account-openclaw-plugin
+
+# 创建软链接
+ln -s "$(pwd)" ~/.openclaw/extensions/wecom-multi-account-openclaw-plugin
+```
+
+3. 每次修改代码后重新构建：
+
+```bash
+npm run build
+```
+
+4. 重启 OpenClaw Gateway：
+
+```bash
+openclaw gateway restart
+```
+
+**注意**：使用软链接方式时，确保不要删除源代码目录，否则插件会失效。
 
 ## 配置
 
