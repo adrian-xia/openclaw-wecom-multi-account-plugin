@@ -1,7 +1,7 @@
 {
-  "id": "wecom-openclaw-plugin",
+  "id": "wecom-multi-account-plugin",
   "channels": [
-    "wecom"
+    "wecom_multi"
   ],
   "configSchema": {
     "type": "object",

@@ -4,11 +4,11 @@
 
 ## 这次改了什么
 
-- 支持 `channels.wecom.accounts.<accountId>` 多账号配置
-- 支持 `channels.wecom.defaultAccount` 指定默认出站账号
+- 支持 `channels.wecom_multi.accounts.<accountId>` 多账号配置
+- 支持 `channels.wecom_multi.defaultAccount` 指定默认出站账号
 - 兼容旧单账号配置：
-  - `channels.wecom.botId`
-  - `channels.wecom.secret`
+  - `channels.wecom_multi.botId`
+  - `channels.wecom_multi.secret`
   - 以及其他旧版平铺字段
 - outbound 发送时会按 `accountId` 选择正确的 WSClient
 - security / pairing / allowFrom 都按账号维度隔离
@@ -19,7 +19,7 @@
 ```json
 {
   "channels": {
-    "wecom": {
+    "wecom_multi": {
       "defaultAccount": "main",
       "accounts": {
         "main": {
@@ -49,7 +49,7 @@
 ```json
 {
   "channels": {
-    "wecom": {
+    "wecom_multi": {
       "enabled": true,
       "botId": "BOT_ID",
       "secret": "SECRET"
@@ -63,7 +63,7 @@
 当你后续调用插件写配置时，账号配置会统一写入：
 
 ```json
-channels.wecom.accounts.default
+channels.wecom_multi.accounts.default
 ```
 
 这样后面再加第二个账号时就不会乱。

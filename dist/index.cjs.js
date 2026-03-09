@@ -26109,7 +26109,7 @@ class WSClient extends EventEmitter$1 {
 /**
  * 企业微信渠道 ID
  */
-const CHANNEL_ID = "wecom";
+const CHANNEL_ID = "wecom_multi";
 /**
  * 企业微信 WebSocket 命令枚举
  */

@@ -5,7 +5,7 @@
 /**
  * 企业微信渠道 ID
  */
-export const CHANNEL_ID = "wecom" as const;
+export const CHANNEL_ID = "wecom_multi" as const;
 
 /**
  * 企业微信 WebSocket 命令枚举

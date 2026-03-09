@@ -1,5 +1,5 @@
 {
-  "name": "@wecom/wecom-openclaw-plugin",
+  "name": "@wecom/wecom-multi-account-openclaw-plugin",
   "version": "1.0.6",
   "type": "module",
   "main": "dist/index.cjs.js",
@@ -38,18 +38,18 @@
       "./dist/index.esm.js"
     ],
     "channel": {
-      "id": "wecom",
+      "id": "wecom_multi",
       "label": "企业微信",
       "selectionLabel": "企业微信 (WeCom)",
-      "docsPath": "/channels/wecom",
-      "docsLabel": "wecom-openclaw-plugin",
-      "blurb": "企业微信机器人接入插件",
+      "docsPath": "/channels/wecom_multi",
+      "docsLabel": "wecom-multi-account-plugin",
+      "blurb": "企业微信多账号机器人接入插件",
       "order": 80,
       "quickstartAllowFrom": true
     },
     "install": {
-      "npmSpec": "@wecom/wecom-openclaw-plugin",
-      "localPath": "extensions/wecom-openclaw-plugin",
+      "npmSpec": "@wecom/wecom-multi-account-openclaw-plugin",
+      "localPath": "extensions/wecom-multi-account-openclaw-plugin",
       "defaultChoice": "npm"
     }
   },
