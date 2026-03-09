@@ -22,76 +22,179 @@
 
 ## 安装
 
-### 方式一：从 npm 安装（推荐）
+### 前置要求
+
+- 已安装 Node.js（建议 v18 或更高版本）
+- 已安装 OpenClaw CLI
+- 已安装 Git
+
+### 方式一：直接安装（推荐）
+
+**步骤 1：下载插件代码**
 
 ```bash
-openclaw plugins install @wecom/wecom-multi-account-openclaw-plugin
-```
+# 进入你的工作目录（可以是任意目录）
+cd ~/Downloads
 
-### 方式二：本地开发安装
-
-1. 克隆仓库到本地：
-
-```bash
+# 克隆仓库
 git clone https://github.com/WecomTeam/wecom-openclaw-plugin.git
+
+# 进入插件目录
 cd wecom-openclaw-plugin
 ```
 
-2. 安装依赖并构建插件：
+**步骤 2：安装依赖**
 
 ```bash
 npm install
+```
+
+等待依赖安装完成，可能需要 1-2 分钟。
+
+**步骤 3：构建插件**
+
+```bash
 npm run build
 ```
 
-3. 安装到 OpenClaw：
+构建成功后，会在 `dist/` 目录下生成编译后的文件。
+
+**步骤 4：安装到 OpenClaw**
 
 ```bash
 openclaw plugins install .
 ```
 
-或者指定完整路径：
+安装成功后，插件会被复制到 `~/.openclaw/extensions/wecom-multi-account-openclaw-plugin/` 目录。
+
+**步骤 5：验证安装**
 
 ```bash
-openclaw plugins install /path/to/wecom-openclaw-plugin
+openclaw plugins list
 ```
 
-插件会被安装到 `~/.openclaw/extensions/wecom-multi-account-openclaw-plugin/` 目录。
+如果看到 `wecom-multi-account-openclaw-plugin` 出现在列表中，说明安装成功。
 
-### 方式三：本地开发调试
+### 方式二：开发调试模式（适合需要修改代码的场景）
 
-如果需要频繁修改代码并测试，可以使用软链接方式：
+如果你需要修改插件代码并实时测试，使用软链接方式更方便。
 
-1. 构建插件：
+**步骤 1：下载并构建插件**
 
 ```bash
+# 进入你的开发目录
+cd ~/Developer
+
+# 克隆仓库
+git clone https://github.com/WecomTeam/wecom-openclaw-plugin.git
+
+# 进入插件目录
+cd wecom-openclaw-plugin
+
+# 安装依赖
 npm install
+
+# 构建插件
 npm run build
 ```
 
-2. 创建软链接到 OpenClaw 插件目录：
+**步骤 2：检查是否已安装旧版本**
 
 ```bash
-# 先删除已安装的插件（如果存在）
+openclaw plugins list
+```
+
+如果看到 `wecom-multi-account-openclaw-plugin` 已存在，需要先卸载：
+
+```bash
+openclaw plugins uninstall wecom-multi-account-openclaw-plugin
+```
+
+或者手动删除：
+
+```bash
 rm -rf ~/.openclaw/extensions/wecom-multi-account-openclaw-plugin
+```
+
+**步骤 3：创建软链接**
+
+```bash
+# 确保当前在插件目录下
+pwd
+# 应该显示类似：/Users/你的用户名/Developer/wecom-openclaw-plugin
 
 # 创建软链接
 ln -s "$(pwd)" ~/.openclaw/extensions/wecom-multi-account-openclaw-plugin
 ```
 
-3. 每次修改代码后重新构建：
+**步骤 4：验证软链接**
 
 ```bash
-npm run build
+ls -la ~/.openclaw/extensions/ | grep wecom
 ```
 
-4. 重启 OpenClaw Gateway：
+应该看到类似输出：
+```
+wecom-multi-account-openclaw-plugin -> /Users/你的用户名/Developer/wecom-openclaw-plugin
+```
+
+**步骤 5：重启 OpenClaw**
 
 ```bash
 openclaw gateway restart
 ```
 
-**注意**：使用软链接方式时，确保不要删除源代码目录，否则插件会失效。
+**步骤 6：验证插件加载**
+
+```bash
+openclaw plugins list
+```
+
+**后续修改代码时的流程：**
+
+1. 修改代码
+2. 重新构建：`npm run build`
+3. 重启 Gateway：`openclaw gateway restart`
+4. 测试功能
+
+### 常见问题
+
+**问题 1：`openclaw: command not found`**
+
+说明 OpenClaw CLI 未安装或未添加到 PATH。请先安装 OpenClaw。
+
+**问题 2：`npm: command not found`**
+
+说明 Node.js 未安装。请先安装 Node.js：
+```bash
+# macOS
+brew install node
+
+# 或者从官网下载：https://nodejs.org/
+```
+
+**问题 3：构建失败，提示缺少依赖**
+
+删除 `node_modules` 和 `package-lock.json`，重新安装：
+```bash
+rm -rf node_modules package-lock.json
+npm install
+npm run build
+```
+
+**问题 4：插件安装后不生效**
+
+1. 检查插件是否在列表中：`openclaw plugins list`
+2. 重启 Gateway：`openclaw gateway restart`
+3. 查看日志：`openclaw logs --follow`
+
+**问题 5：软链接创建失败**
+
+确保目标目录不存在：
+```bash
+rm -rf ~/.openclaw/extensions/wecom-multi-account-openclaw-plugin
+ln -s "$(pwd)" ~/.openclaw/extensions/wecom-multi-account-openclaw-plugin
+```
 
 ## 配置
 
@@ -464,17 +567,6 @@ npm run build
 - `dist/index.cjs.js` - CommonJS 格式
 - `dist/index.d.ts` - TypeScript 类型定义
 - `dist/src/*.d.ts` - 子模块类型定义
-
-### 发布到 npm
-
-```bash
-npm run publish:release
-```
-
-该命令会自动执行：
-1. 清理旧构建产物
-2. 重新构建
-3. 发布到 npm
 
 ### 项目结构
 
