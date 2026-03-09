@@ -31625,7 +31625,7 @@ const wecomPlugin = {
 };
 
 const plugin = {
-    id: "wecom",
+    id: "wecom-multi-account-openclaw-plugin",
     name: "企业微信",
     description: "企业微信 OpenClaw 插件",
     configSchema: pluginSdk.emptyPluginConfigSchema(),

@@ -5,7 +5,7 @@ import { wecomPlugin } from "./src/channel.js";
 import { setWeComRuntime } from "./src/runtime.js";
 
 const plugin = {
-  id: "wecom",
+  id: "wecom-multi-account-openclaw-plugin",
   name: "企业微信",
   description: "企业微信 OpenClaw 插件",
   configSchema: emptyPluginConfigSchema(),
